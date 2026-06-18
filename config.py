@@ -19,6 +19,15 @@ DATA_GO_KR_KEY = os.getenv("DATA_GO_KR_KEY", "")
 # 개발 단계 토글: true=mock 데이터, false=실제 파일+API
 USE_MOCK = os.getenv("USE_MOCK", "true").lower() == "true"
 
+# data.go.kr 오픈API 엔드포인트
+# ① 중앙부처복지서비스 (목록 조회)
+WELFARE_API_URL = (
+    "http://apis.data.go.kr/B554287/NationalWelfareInformationsV001"
+    "/NationalWelfarelistV001"
+)
+# ④ 전국사회복지시설표준데이터 (best-effort)
+FACILITY_API_BASE = "http://apis.data.go.kr/B554287/sclWlfrFcltInfoInqirService1"
+
 # 경로
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"

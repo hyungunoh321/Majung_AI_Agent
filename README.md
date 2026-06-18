@@ -21,7 +21,9 @@ pip install -r requirements.txt
 
 # 3) 환경변수
 copy .env.example .env   # Windows
-# .env 의 DATA_GO_KR_KEY 에 발급키 입력, USE_MOCK 토글
+# .env 의 DATA_GO_KR_KEY 에 발급키 입력
+#   USE_MOCK=true  → 가짜 데이터(mock)로 동작 (키 없이도 전 기능 흐름 확인)
+#   USE_MOCK=false → 실제 데이터: data/ 의 csv·xlsx 파일 + data.go.kr 오픈API
 ```
 
 ## 실행
@@ -42,7 +44,7 @@ python main.py
 - [x] **Phase 1** — 골격 + `search_welfare_services` (mock) + 에이전트 루프
 - [x] **Phase 2** — 도구 3종(welfare/facility/jobs, mock) + 대화 히스토리 + 질문별 도구 라우팅
 - [x] **Phase 3** — 서류 인식(비전, gemma3:12b): 사진 경로 입력 → 핵심 추출 → 쉬운 설명
-- [ ] Phase 4 — 실제 데이터 연결 (`USE_MOCK=false`)
+- [x] **Phase 4** — 실제 데이터 연결: ③csv·②xlsx 파일 + ①data.go.kr 오픈API (`USE_MOCK=false`)
 - [ ] Phase 5 — 음성(STT/TTS)
 
 ## 구조
