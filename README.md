@@ -39,13 +39,19 @@ python main.py
 `gemma3:12b`가 핵심 정보를 읽어 쉬운 말로 설명합니다. 샘플 안내문은
 `python tests/make_sample_doc.py`로 생성할 수 있습니다.
 
+**음성 대화**: `녹음` 이라고 입력하면 5초 동안 마이크로 듣고(STT, faster-whisper),
+답변을 한국어 음성으로 들려줍니다(TTS, edge-tts).
+- STT는 CPU로 동작(AMD GPU 가속 불가), 첫 실행 시 `small` 모델(약 0.5GB)을 내려받습니다.
+- TTS(edge-tts)는 **인터넷 연결이 필요**합니다.
+- 음성 라운드트립 점검: `python tests/test_voice.py`
+
 ## 진행 현황 (Phase)
 
 - [x] **Phase 1** — 골격 + `search_welfare_services` (mock) + 에이전트 루프
 - [x] **Phase 2** — 도구 3종(welfare/facility/jobs, mock) + 대화 히스토리 + 질문별 도구 라우팅
 - [x] **Phase 3** — 서류 인식(비전, gemma3:12b): 사진 경로 입력 → 핵심 추출 → 쉬운 설명
 - [x] **Phase 4** — 실제 데이터 연결: ③csv·②xlsx 파일 + ①data.go.kr 오픈API (`USE_MOCK=false`)
-- [ ] Phase 5 — 음성(STT/TTS)
+- [x] **Phase 5** — 음성: STT(faster-whisper small) + TTS(edge-tts 한국어) 한 바퀴
 
 ## 구조
 

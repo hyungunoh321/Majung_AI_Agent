@@ -28,6 +28,12 @@ WELFARE_API_URL = (
 # ④ 전국사회복지시설표준데이터 (best-effort)
 FACILITY_API_BASE = "http://apis.data.go.kr/B554287/sclWlfrFcltInfoInqirService1"
 
+# 음성 (Phase 5)
+STT_MODEL_SIZE = "small"      # faster-whisper 모델 크기 (CPU 실행 기준 균형)
+STT_DEVICE = "cpu"            # AMD GPU는 CTranslate2 가속 불가 → CPU
+STT_COMPUTE_TYPE = "int8"     # CPU에서 가볍고 빠른 양자화
+TTS_VOICE = "ko-KR-SunHiNeural"   # edge-tts 한국어 여성 음성
+
 # 경로
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"

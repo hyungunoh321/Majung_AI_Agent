@@ -6,6 +6,7 @@ from agent.prompts import SYSTEM_PROMPT
 from multimodal.vision import read_document
 
 _IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".bmp", ".webp")
+_VOICE_CMDS = ("녹음", "음성")
 
 
 def _maybe_image_path(text: str) -> str | None:
@@ -20,6 +21,7 @@ def main() -> None:
     print("=" * 50)
     print(" 마중(Majung) — 어르신 복지 도우미")
     print(" 서류 사진은 이미지 파일 경로를 그대로 입력하세요.")
+    print(" 음성으로 말하려면 '녹음' 이라고 입력하세요.")
     print(" 종료하려면 'exit' 또는 '종료' 를 입력하세요.")
     print("=" * 50)
 
@@ -38,18 +40,35 @@ def main() -> None:
             print("마중> 안녕히 계세요. 또 찾아주세요.")
             break
 
-        image_path = _maybe_image_path(user_text)
-        if image_path:
-            print("마중> 서류를 읽고 있어요. 잠시만 기다려 주세요...")
-            extracted = read_document(image_path)
-            user_text = (
-                "어르신이 보여주신 서류 내용입니다:\n"
-                f"{extracted}\n\n"
-                "이 서류가 무슨 내용인지, 신청 자격과 기한을 어르신께 쉽게 설명해 주세요."
-            )
+        voice_mode = user_text in _VOICE_CMDS
+        if voice_mode:
+            # 마이크 녹음 → STT 로 텍스트 변환 (음성 모듈은 필요할 때만 import)
+            from multimodal.stt import record_microphone, transcribe
+            wav_path = record_microphone(seconds=5)
+            if not wav_path:
+                continue
+            user_text = transcribe(wav_path)
+            print(f"어르신(음성)> {user_text}")
+            if not user_text.strip():
+                continue
+        else:
+            image_path = _maybe_image_path(user_text)
+            if image_path:
+                print("마중> 서류를 읽고 있어요. 잠시만 기다려 주세요...")
+                extracted = read_document(image_path)
+                user_text = (
+                    "어르신이 보여주신 서류 내용입니다:\n"
+                    f"{extracted}\n\n"
+                    "이 서류가 무슨 내용인지, 신청 자격과 기한을 어르신께 쉽게 설명해 주세요."
+                )
 
         answer = run_agent(user_text, history)
         print(f"\n마중> {answer}")
+
+        if voice_mode:
+            # 음성으로 들어왔으면 음성으로 답한다
+            from multimodal.tts import speak
+            speak(answer)
 
 
 if __name__ == "__main__":
