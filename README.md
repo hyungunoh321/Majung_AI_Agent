@@ -1,0 +1,51 @@
+# 마중 (Majung) — 어르신 복지 도우미 AI 에이전트
+
+디지털 취약계층 어르신이 자신에게 맞는 노인복지 혜택을 음성·이미지·텍스트로 쉽게 찾도록 돕는 멀티모달 AI 에이전트입니다.
+
+- **두뇌 모델**: `qwen3:14b` (대화·추론·도구 호출)
+- **비전 모델**: `gemma3:12b` (서류/이미지 OCR — Phase 3)
+- **데이터**: data.go.kr 공공데이터 4종
+- **런타임**: 로컬 Ollama (`http://localhost:11434`)
+
+## 사전 준비
+
+```bash
+# 1) Ollama 모델 받기
+ollama pull qwen3:14b
+ollama pull gemma3:12b
+
+# 2) 파이썬 의존성
+pip install -r requirements.txt
+
+# 3) 환경변수
+copy .env.example .env   # Windows
+# .env 의 DATA_GO_KR_KEY 에 발급키 입력, USE_MOCK 토글
+```
+
+## 실행
+
+```bash
+python main.py
+```
+
+예) `파주 사는데 돌봄 서비스 있어요?` 라고 입력하면, 에이전트가
+`search_welfare_services` 도구를 호출해 쉬운 말로 안내합니다.
+
+## 진행 현황 (Phase)
+
+- [x] **Phase 1** — 골격 + `search_welfare_services` (mock) + 에이전트 루프
+- [ ] Phase 2 — 도구 3종(welfare/facility/jobs) + 시스템 프롬프트 + 대화 히스토리
+- [ ] Phase 3 — 서류 인식(비전, gemma3:12b)
+- [ ] Phase 4 — 실제 데이터 연결 (`USE_MOCK=false`)
+- [ ] Phase 5 — 음성(STT/TTS)
+
+## 구조
+
+```
+majung/
+├── config.py          # 모델명·상수·키 로딩
+├── main.py            # CLI 대화 루프
+├── agent/             # core.py(에이전트 루프), prompts.py
+├── tools/             # welfare.py, registry.py (Phase 2: facility/jobs 추가)
+└── data/mock/         # Phase 1~2 가짜 응답 JSON
+```
