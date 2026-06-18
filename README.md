@@ -36,7 +36,7 @@ python main.py
 ## 진행 현황 (Phase)
 
 - [x] **Phase 1** — 골격 + `search_welfare_services` (mock) + 에이전트 루프
-- [ ] Phase 2 — 도구 3종(welfare/facility/jobs) + 시스템 프롬프트 + 대화 히스토리
+- [x] **Phase 2** — 도구 3종(welfare/facility/jobs, mock) + 대화 히스토리 + 질문별 도구 라우팅
 - [ ] Phase 3 — 서류 인식(비전, gemma3:12b)
 - [ ] Phase 4 — 실제 데이터 연결 (`USE_MOCK=false`)
 - [ ] Phase 5 — 음성(STT/TTS)
