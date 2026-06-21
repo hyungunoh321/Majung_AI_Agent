@@ -7,6 +7,7 @@ from multimodal.vision import read_document
 
 _IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".bmp", ".webp")
 _VOICE_CMDS = ("녹음", "음성")
+_PHOTO_CMDS = ("사진", "파일", "사진첨부", "사진 첨부")
 
 
 def _maybe_image_path(text: str) -> str | None:
@@ -17,10 +18,33 @@ def _maybe_image_path(text: str) -> str | None:
     return None
 
 
+def _pick_image_via_dialog() -> str:
+    """파일 선택 창을 띄워 어르신이 클릭으로 사진을 고르게 한다. 경로 또는 빈 문자열."""
+    try:
+        import tkinter as tk
+        from tkinter import filedialog
+
+        root = tk.Tk()
+        root.withdraw()
+        root.attributes("-topmost", True)  # 창을 맨 앞으로
+        path = filedialog.askopenfilename(
+            title="서류 사진을 선택하세요",
+            filetypes=[
+                ("이미지 파일", "*.jpg *.jpeg *.png *.bmp *.webp"),
+                ("모든 파일", "*.*"),
+            ],
+        )
+        root.destroy()
+        return path or ""
+    except Exception as e:  # noqa: BLE001 — 창을 못 띄우면 경로 입력으로 안내
+        print(f"(파일 선택 창을 열 수 없어요: {e} — 사진 파일 경로를 직접 입력해 주세요)")
+        return ""
+
+
 def main() -> None:
     print("=" * 50)
     print(" 마중(Majung) — 어르신 복지 도우미")
-    print(" 서류 사진은 이미지 파일 경로를 그대로 입력하세요.")
+    print(" 서류 사진을 보여주려면 '사진' 이라고 입력하세요(파일 선택 창이 떠요).")
     print(" 음성으로 말하려면 '녹음' 이라고 입력하세요.")
     print(" 종료하려면 'exit' 또는 '종료' 를 입력하세요.")
     print("=" * 50)
@@ -52,7 +76,14 @@ def main() -> None:
             if not user_text.strip():
                 continue
         else:
-            image_path = _maybe_image_path(user_text)
+            if user_text in _PHOTO_CMDS:
+                image_path = _pick_image_via_dialog()
+                if not image_path:
+                    print("마중> 사진을 고르지 않으셨어요. 다시 '사진'이라고 말씀해 주세요.")
+                    continue
+            else:
+                image_path = _maybe_image_path(user_text)
+
             if image_path:
                 print("마중> 서류를 읽고 있어요. 잠시만 기다려 주세요...")
                 extracted = read_document(image_path)

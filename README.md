@@ -35,9 +35,10 @@ python main.py
 예) `파주 사는데 돌봄 서비스 있어요?` 라고 입력하면, 에이전트가
 `search_welfare_services` 도구를 호출해 쉬운 말로 안내합니다.
 
-**서류 사진 해석**: 이미지 파일 경로를 그대로 입력하면(예: `data/sample/안내문_샘플.png`),
+**서류 사진 해석**: `사진` 이라고 입력하면 **파일 선택 창**이 떠서 클릭으로 사진을 고를 수 있습니다.
+(또는 이미지 파일을 터미널에 드래그 앤 드롭하거나, 경로를 직접 입력해도 됩니다.)
 `gemma3:12b`가 핵심 정보를 읽어 쉬운 말로 설명합니다. 샘플 안내문은
-`python tests/make_sample_doc.py`로 생성할 수 있습니다.
+`python tests/make_sample_doc.py`로 생성할 수 있습니다(`data/sample/안내문_샘플.png`).
 
 **음성 대화**: `녹음` 이라고 입력하면 5초 동안 마이크로 듣고(STT, faster-whisper),
 답변을 한국어 음성으로 들려줍니다(TTS, edge-tts).
