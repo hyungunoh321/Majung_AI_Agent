@@ -68,7 +68,7 @@ def main() -> None:
         if voice_mode:
             # 마이크 녹음 → STT 로 텍스트 변환 (음성 모듈은 필요할 때만 import)
             from multimodal.stt import record_microphone, transcribe
-            wav_path = record_microphone(seconds=5)
+            wav_path = record_microphone(seconds=10)
             if not wav_path:
                 continue
             user_text = transcribe(wav_path)
