@@ -4,34 +4,39 @@
     "target": "만 65세 이상, 혼자 일상생활이 어려운 어르신",
     "how": "주민센터 방문 신청 또는 보건복지상담센터(129) 전화",
     "keywords": ["돌봄", "방문", "안부", "생활지원"],
-    "regions": ["경기도 파주시", "전국"]
+    "regions": ["경기도 파주시", "전국"],
+    "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00003191"
   },
   {
     "name": "기초연금",
     "target": "만 65세 이상, 소득·재산이 일정 기준 이하인 어르신",
     "how": "주민센터 또는 국민연금공단 지사 방문, 복지로(bokjiro.go.kr) 온라인 신청",
     "keywords": ["연금", "기초연금", "소득", "용돈"],
-    "regions": ["전국"]
+    "regions": ["전국"],
+    "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00000024"
   },
   {
     "name": "노인장기요양보험",
     "target": "만 65세 이상 또는 노인성 질병이 있는 분 중 거동이 불편한 어르신",
     "how": "국민건강보험공단에 장기요양인정 신청 후 등급 판정",
     "keywords": ["장기요양", "요양", "돌봄", "거동"],
-    "regions": ["전국"]
+    "regions": ["전국"],
+    "link": "https://www.longtermcare.or.kr"
   },
   {
     "name": "노인일자리 및 사회활동 지원사업",
     "target": "만 65세 이상(일부 사업 60세 이상) 어르신",
     "how": "시니어클럽·노인복지관 또는 주민센터 신청",
     "keywords": ["일자리", "활동", "참여", "용돈벌이"],
-    "regions": ["경기도 파주시", "전국"]
+    "regions": ["경기도 파주시", "전국"],
+    "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001155"
   },
   {
     "name": "응급안전안심서비스",
     "target": "홀로 사는 어르신 등 안전 확인이 필요한 분",
     "how": "주민센터 또는 지역 노인복지관 신청",
     "keywords": ["돌봄", "안전", "응급", "독거"],
-    "regions": ["경기도 파주시", "전국"]
+    "regions": ["경기도 파주시", "전국"],
+    "link": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00001093"
   }
 ]
